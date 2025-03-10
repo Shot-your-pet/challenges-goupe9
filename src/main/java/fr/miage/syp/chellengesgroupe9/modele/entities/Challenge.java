@@ -1,16 +1,17 @@
 package fr.miage.syp.chellengesgroupe9.modele.entities;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.UuidGenerator;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.UUID;
 
 @Entity
 public class Challenge {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long idChallenge;
+    @UuidGenerator
+    private UUID idChallenge;
 
     @Column(unique = true)
     private String titreChallenge;
@@ -18,14 +19,25 @@ public class Challenge {
     @Column(unique = true)
     private String descriptionChallenge;
 
-    private LocalDateTime dateDebutChallenge;
-    private LocalDateTime dateFinChallenge;
+    private Instant dateDebutChallenge;
+    private Instant dateFinChallenge;
 
-    public long getIdChallenge() {
+    public Challenge() {
+    }
+
+    public Challenge(UUID idChallenge, String titreChallenge, String descriptionChallenge, Instant dateDebutChallenge, Instant dateFinChallenge) {
+        this.idChallenge = idChallenge;
+        this.titreChallenge = titreChallenge;
+        this.descriptionChallenge = descriptionChallenge;
+        this.dateDebutChallenge = dateDebutChallenge;
+        this.dateFinChallenge = dateFinChallenge;
+    }
+
+    public UUID getIdChallenge() {
         return idChallenge;
     }
 
-    public void setIdChallenge(long idChallenge) {
+    public void setIdChallenge(UUID idChallenge) {
         this.idChallenge = idChallenge;
     }
 
@@ -44,4 +56,9 @@ public class Challenge {
     public void setDescriptionChallenge(String descriptionChallenge) {
         this.descriptionChallenge = descriptionChallenge;
     }
+
+    public Instant getDateDebutChallenge() {return dateDebutChallenge;}
+    public void setDateDebutChallenge(Instant dateDebutChallenge) { this.dateDebutChallenge = dateDebutChallenge; }
+    public Instant getDateFinChallenge() {return dateFinChallenge;}
+    public void setDateFinChallenge(Instant dateFinChallenge) { this.dateFinChallenge = dateFinChallenge; }
 }

@@ -23,7 +23,7 @@ public class Controleur {
 
     @PostMapping("/creationChallenge")
     public ResponseEntity<String> createChallenge(@RequestBody CreerChallengeDTO creerChallengeDTO) {
-        this.facadeChallenge.creerChallenge(creerChallengeDTO.titreChallenge(), creerChallengeDTO.descriptionChallenge());
+        this.facadeChallenge.creerChallenge(creerChallengeDTO);
         return ResponseEntity.ok().build();
     }
 
