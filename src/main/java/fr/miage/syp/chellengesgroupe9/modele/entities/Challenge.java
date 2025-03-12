@@ -19,18 +19,14 @@ public class Challenge {
     @Column(unique = true)
     private String descriptionChallenge;
 
-    private Instant dateDebutChallenge;
-    private Instant dateFinChallenge;
-
     public Challenge() {
     }
 
-    public Challenge(UUID idChallenge, String titreChallenge, String descriptionChallenge, Instant dateDebutChallenge, Instant dateFinChallenge) {
+    public Challenge(UUID idChallenge, String titreChallenge, String descriptionChallenge) {
         this.idChallenge = idChallenge;
         this.titreChallenge = titreChallenge;
         this.descriptionChallenge = descriptionChallenge;
-        this.dateDebutChallenge = dateDebutChallenge;
-        this.dateFinChallenge = dateFinChallenge;
+
     }
 
     public UUID getIdChallenge() {
@@ -57,8 +53,4 @@ public class Challenge {
         this.descriptionChallenge = descriptionChallenge;
     }
 
-    public Instant getDateDebutChallenge() {return dateDebutChallenge;}
-    public void setDateDebutChallenge(Instant dateDebutChallenge) { this.dateDebutChallenge = dateDebutChallenge; }
-    public Instant getDateFinChallenge() {return dateFinChallenge;}
-    public void setDateFinChallenge(Instant dateFinChallenge) { this.dateFinChallenge = dateFinChallenge; }
 }

@@ -17,7 +17,7 @@ public class RabbitEventsSender {
     }
 
     public record Message<T>(UUID idDemande, UUID idReponse, T data) implements Serializable {}
-    public record MessageNewChallenge(Long idChallenge, String titreChallenge, String descriptionChallenge, Instant dateDebutChallenge, Instant dateFinChallenge) implements Serializable {}
+    public record MessageNewChallenge(Long idChallenge, String titreChallenge, String descriptionChallenge) implements Serializable {}
 
 
     public <T> void send(UUID idDemande, UUID idReponse, T data){
@@ -25,8 +25,10 @@ public class RabbitEventsSender {
         this.rabbitTemplate.convertAndSend("exchange", "routingkey", message);
     }
 
-    public void sendUpdateChallengeEvent(Long idChallenge ,String titreChallenge, String descriptionChallenge, Instant dateDebutChallenge, Instant dateFinChallenge) {
-        MessageNewChallenge message = new MessageNewChallenge(idChallenge,titreChallenge,descriptionChallenge,dateDebutChallenge,dateFinChallenge);
+    public void sendUpdateChallengeEvent(Long idChallenge ,String titreChallenge, String descriptionChallenge) {
+        MessageNewChallenge message = new MessageNewChallenge(idChallenge,titreChallenge,descriptionChallenge);
         this.rabbitTemplate.convertAndSend("challenge.creer_challenge", message);
     }
+
+    // Queue d'écoute qui vient de TimeLine : "challenge_jour" {date du jour : } --> {infos_challenge : }
  }

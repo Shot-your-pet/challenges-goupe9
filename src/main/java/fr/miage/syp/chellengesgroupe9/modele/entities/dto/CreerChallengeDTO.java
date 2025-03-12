@@ -6,8 +6,6 @@ import java.util.UUID;
 public record CreerChallengeDTO(
         UUID idChallenge,
         String titreChallenge,
-        String descriptionChallenge,
-        Instant dateDebutChallenge,
-        Instant dateFinChallenge
+        String descriptionChallenge
 ) {
 }

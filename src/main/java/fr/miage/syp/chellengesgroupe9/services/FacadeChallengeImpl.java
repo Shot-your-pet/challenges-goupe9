@@ -24,9 +24,7 @@ public class FacadeChallengeImpl implements FacadeChallenge {
         Challenge challenge = new Challenge(
                 creerChallengeDTO.idChallenge(),
                 creerChallengeDTO.titreChallenge(),
-                creerChallengeDTO.descriptionChallenge(),
-                creerChallengeDTO.dateDebutChallenge(),
-                creerChallengeDTO.dateFinChallenge()
+                creerChallengeDTO.descriptionChallenge()
         );
 
         challenge = challengeRepository.save(challenge);
