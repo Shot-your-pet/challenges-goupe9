@@ -20,10 +20,18 @@ public class ChallengeHistorique {
 
     private Instant dateDebutChallengeHistorique;
     private Instant dateFinChallengeHistorique;
-    private Instant dateTirage;
-
     private int nbPublicationChallenge;
 
+    public ChallengeHistorique() {
+    }
+
+    public ChallengeHistorique(UUID idChallengeHistorique, Challenge challenge, Instant dateDebutChallengeHistorique, Instant dateFinChallengeHistorique, int nbPublicationChallenge) {
+        this.idChallengeHistorique = idChallengeHistorique;
+        this.challenge = challenge;
+        this.dateDebutChallengeHistorique = dateDebutChallengeHistorique;
+        this.dateFinChallengeHistorique = dateFinChallengeHistorique;
+        this.nbPublicationChallenge = nbPublicationChallenge;
+    }
 
     public UUID getIdChallengeHistorique() {
         return idChallengeHistorique;
@@ -53,13 +61,6 @@ public class ChallengeHistorique {
         this.dateFinChallengeHistorique = dateFinChallengeHistorique;
     }
 
-    public Instant getDateTirage() {
-        return dateTirage;
-    }
-
-    public void setDateTirage(Instant dateTirage) {
-        this.dateTirage = dateTirage;
-    }
 
     public int getNbPublicationChallenge() {
         return nbPublicationChallenge;
@@ -68,4 +69,18 @@ public class ChallengeHistorique {
     public void setNbPublicationChallenge(int nbPublicationChallenge) {
         this.nbPublicationChallenge = nbPublicationChallenge;
     }
+
+
+    @Override
+    public String toString() {
+        return "ChallengeHistorique{" +
+                "idChallengeHistorique=" + idChallengeHistorique +
+                ", challenge=" + challenge +
+                ", dateDebutChallengeHistorique=" + dateDebutChallengeHistorique +
+                ", dateFinChallengeHistorique=" + dateFinChallengeHistorique +
+                ", nbPublicationChallenge=" + nbPublicationChallenge +
+                '}';
+    }
+
+
 }

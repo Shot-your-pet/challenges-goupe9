@@ -19,13 +19,15 @@ public class Challenge {
     @Column(unique = true)
     private String descriptionChallenge;
 
+    private Instant dateSuppressionChallenge;
+
     public Challenge() {
     }
 
-    public Challenge(UUID idChallenge, String titreChallenge, String descriptionChallenge) {
-        this.idChallenge = idChallenge;
+    public Challenge(String titreChallenge, String descriptionChallenge) {
         this.titreChallenge = titreChallenge;
         this.descriptionChallenge = descriptionChallenge;
+        this.dateSuppressionChallenge = null;
 
     }
 
@@ -51,6 +53,24 @@ public class Challenge {
 
     public void setDescriptionChallenge(String descriptionChallenge) {
         this.descriptionChallenge = descriptionChallenge;
+    }
+
+    public Instant getDateSuppressionChallenge() {
+        return dateSuppressionChallenge;
+    }
+
+    public void setDateSuppressionChallenge() {
+        this.dateSuppressionChallenge = Instant.now();
+    }
+
+    @Override
+    public String toString() {
+        return "Challenge{" +
+                "idChallenge=" + idChallenge +
+                ", titreChallenge='" + titreChallenge + '\'' +
+                ", descriptionChallenge='" + descriptionChallenge + '\'' +
+                ", dateSuppressionChallenge=" + dateSuppressionChallenge +
+                '}';
     }
 
 }

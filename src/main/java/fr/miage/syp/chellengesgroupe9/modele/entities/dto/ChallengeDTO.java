@@ -1,10 +1,8 @@
 package fr.miage.syp.chellengesgroupe9.modele.entities.dto;
 
-import java.time.Instant;
-import java.util.UUID;
-
-public record CreerChallengeDTO(
+public record ChallengeDTO(
         String titreChallenge,
         String descriptionChallenge
+
 ) {
 }
