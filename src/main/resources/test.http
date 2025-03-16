@@ -1,17 +1,45 @@
-### GET request to example server
-GET https://examples.http-client.intellij.net/get
-    ?generated-in=IntelliJ IDEA
-
-###
-
-POST http://localhost:8080/challenges/creationChallenge
+POST http://localhost:8080/challenges
 Content-Type: application/JSON
 
 {
-"titreChallenge" : "Challenge 1",
-"descriptionChallenge" : "banajsbbsd"
+"titreChallenge" : "Challenge 6",
+"descriptionChallenge" : "htgwfgtrtrtrte gfrwfgfg"
 }
 
 ###
+
+PUT http://localhost:8080/challenges/6015b93c-fc5e-45bf-92c9-1db239b97637
+Content-Type: application/JSON
+
+{
+  "titreChallenge" : "Challenge 1 modifié",
+  "descriptionChallenge" : "banajsbbsdkdejed"
+}
+
+###
+
+GET http://localhost:8080/challenges
+
+###
+
+###
+
+GET http://localhost:8080/challenges/today
+
+###
+
+
+DELETE http://localhost:8080/challenges/6015b93c-fc5e-45bf-92c9-1db239b97637
+
+###
+
+POST http://localhost:8080/challenges/historique
+
+###
+
+
+
+
+
 
 

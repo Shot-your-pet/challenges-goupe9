@@ -5,6 +5,7 @@ import fr.miage.syp.chellengesgroupe9.modele.entities.ChallengeHistorique;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 
@@ -13,4 +14,8 @@ public interface ChallengeHistoriqueRepository extends JpaRepository<ChallengeHi
     List<ChallengeHistorique> findLast5Tirages();
 
     List<ChallengeHistorique> findByChallenge(Challenge challenge);
+
+
+    @Query("SELECT ch FROM ChallengeHistorique ch WHERE :dateDuJour BETWEEN ch.dateDebutChallengeHistorique AND ch.dateFinChallengeHistorique")
+    List<ChallengeHistorique> findLastChallenge(Instant dateDuJour);
 }

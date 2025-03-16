@@ -25,8 +25,7 @@ public class ChallengeHistorique {
     public ChallengeHistorique() {
     }
 
-    public ChallengeHistorique(UUID idChallengeHistorique, Challenge challenge, Instant dateDebutChallengeHistorique, Instant dateFinChallengeHistorique, int nbPublicationChallenge) {
-        this.idChallengeHistorique = idChallengeHistorique;
+    public ChallengeHistorique(Challenge challenge, Instant dateDebutChallengeHistorique, Instant dateFinChallengeHistorique, int nbPublicationChallenge) {
         this.challenge = challenge;
         this.dateDebutChallengeHistorique = dateDebutChallengeHistorique;
         this.dateFinChallengeHistorique = dateFinChallengeHistorique;

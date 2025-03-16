@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import org.hibernate.annotations.UuidGenerator;
 
 import java.time.Instant;
+import java.util.Objects;
 import java.util.UUID;
 
 @Entity
@@ -73,4 +74,15 @@ public class Challenge {
                 '}';
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Challenge challenge = (Challenge) o;
+        return Objects.equals(idChallenge, challenge.idChallenge) && Objects.equals(titreChallenge, challenge.titreChallenge) && Objects.equals(descriptionChallenge, challenge.descriptionChallenge) && Objects.equals(dateSuppressionChallenge, challenge.dateSuppressionChallenge);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(idChallenge, titreChallenge, descriptionChallenge, dateSuppressionChallenge);
+    }
 }

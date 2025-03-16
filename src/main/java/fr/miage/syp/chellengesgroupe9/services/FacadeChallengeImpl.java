@@ -57,8 +57,15 @@ public class FacadeChallengeImpl implements FacadeChallenge {
     @Override
     public void supprimerChallenge(UUID idChallenge) throws ChallengeInexistantException {
         Challenge challenge = challengeRepository.findById(idChallenge).orElseThrow(() -> new ChallengeInexistantException(idChallenge));
-        challenge.setDateSuppressionChallenge();
-        challengeRepository.save(challenge);
+        List<ChallengeHistorique> challengesHistoriques = this.challengeHistoriqueRepository.findByChallenge(challenge);
+        if (challengesHistoriques.isEmpty()){
+            challengeRepository.delete(challenge);
+        }
+        else {
+            challenge.setDateSuppressionChallenge();
+            challengeRepository.save(challenge);
+        }
+
     }
 
     @Override
