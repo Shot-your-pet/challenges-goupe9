@@ -14,7 +14,7 @@ public class RabbitEventsSender {
 //    }
 //
 //    public record Message<T>(UUID idDemande, UUID idReponse, T contenu) implements Serializable {}
-//    public record MessageNewChallenge(UUID idChallenge, String titreChallenge, String descriptionChallenge) implements Serializable {}
+//    public record MessageNewChallenge(UUID idChallenge, String titre, String description) implements Serializable {}
 //
 //
 //    public <T> void send(UUID idDemande, UUID idReponse, T contenu){
@@ -22,8 +22,8 @@ public class RabbitEventsSender {
 //        this.rabbitTemplate.convertAndSend("exchange", "routingkey", message);
 //    }
 //
-//    public void sendUpdateChallengeEvent(UUID idChallenge ,String titreChallenge, String descriptionChallenge) {
-//        MessageNewChallenge message = new MessageNewChallenge(idChallenge,titreChallenge,descriptionChallenge);
+//    public void sendUpdateChallengeEvent(UUID idChallenge ,String titre, String description) {
+//        MessageNewChallenge message = new MessageNewChallenge(idChallenge,titre,description);
 //        this.rabbitTemplate.convertAndSend("challenge.creer_challenge", message);
 //    }
 

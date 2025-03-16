@@ -68,8 +68,8 @@ public class Challenge {
     public String toString() {
         return "Challenge{" +
                 "idChallenge=" + idChallenge +
-                ", titreChallenge='" + titreChallenge + '\'' +
-                ", descriptionChallenge='" + descriptionChallenge + '\'' +
+                ", titre='" + titreChallenge + '\'' +
+                ", description='" + descriptionChallenge + '\'' +
                 ", dateSuppressionChallenge=" + dateSuppressionChallenge +
                 '}';
     }

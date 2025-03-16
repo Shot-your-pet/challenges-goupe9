@@ -12,10 +12,8 @@ import fr.miage.syp.chellengesgroupe9.modele.exceptions.ChallengeInexistantExcep
 import fr.miage.syp.chellengesgroupe9.modele.mappers.ChallengeMappers;
 import org.springframework.stereotype.Service;
 
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -32,8 +30,8 @@ public class FacadeChallengeImpl implements FacadeChallenge {
     @Override
     public ChallengeDTO creerChallenge(CreerChallengeDTO creerChallengeDTO) {
         Challenge challenge = new Challenge(
-                creerChallengeDTO.titreChallenge(),
-                creerChallengeDTO.descriptionChallenge()
+                creerChallengeDTO.titre(),
+                creerChallengeDTO.description()
         );
 
         challenge = challengeRepository.save(challenge);
@@ -49,8 +47,8 @@ public class FacadeChallengeImpl implements FacadeChallenge {
             throw new ChallengeDejaSortiException(idChallenge);
         }
 
-        challenge.setTitreChallenge(modifierChallengeDTO.titreChallenge());
-        challenge.setDescriptionChallenge(modifierChallengeDTO.descriptionChallenge());
+        challenge.setTitreChallenge(modifierChallengeDTO.titre());
+        challenge.setDescriptionChallenge(modifierChallengeDTO.description());
         return ChallengeMappers.challengeToDTO(challengeRepository.save(challenge));
     }
     

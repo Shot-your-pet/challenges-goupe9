@@ -2,8 +2,8 @@ POST http://localhost:8080/challenges
 Content-Type: application/JSON
 
 {
-"titreChallenge" : "Challenge 7",
-"descriptionChallenge" : "Chall 7"
+"titre" : "Challenge 7",
+"description" : "Chall 7"
 }
 
 ###
@@ -12,8 +12,8 @@ PUT http://localhost:8080/challenges/6015b93c-fc5e-45bf-92c9-1db239b97637
 Content-Type: application/JSON
 
 {
-  "titreChallenge" : "Challenge 1 modifié",
-  "descriptionChallenge" : "banajsbbsdkdejed"
+  "titre" : "Challenge 1 modifié",
+  "description" : "banajsbbsdkdejed"
 }
 
 ###
