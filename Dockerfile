@@ -5,7 +5,7 @@ FROM openjdk:24-slim
 WORKDIR /app
 
 # Copier le fichier JAR de l'application dans le conteneur
-COPY target/challenges-groupe9-0.0.1-SNAPSHOT.jar /app/app.jar
+COPY target/chellenges-groupe9-0.0.1-SNAPSHOT.jar /app/app.jar
 
 # Exposer le port sur lequel l'application s'exécute
 EXPOSE 8086

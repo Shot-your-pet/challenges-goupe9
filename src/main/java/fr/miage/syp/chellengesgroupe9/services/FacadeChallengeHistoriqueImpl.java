@@ -45,14 +45,10 @@ public class FacadeChallengeHistoriqueImpl implements FacadeChallengeHistorique{
 
         while(!challengeTrouve) {
             int nbAleatoire = random.nextInt(0, Math.max(challenges.size() - 1, 1));
-            System.out.println(nbAleatoire);
-            System.out.println(derniers5Tirages);
             challengeTire = challenges.get(nbAleatoire);
-            System.out.println("challenge tiré" + challengeTire);
             challengeTrouve = true;
 
             for (ChallengeHistorique unDesDerniers5Tirage : derniers5Tirages) {
-                System.out.println(unDesDerniers5Tirage + " " + challengeTire);
                 if(unDesDerniers5Tirage.getChallenge().equals(challengeTire)) {
                     challengeTrouve = false;
                     break;
