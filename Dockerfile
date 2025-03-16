@@ -8,7 +8,7 @@ WORKDIR /app
 COPY target/chellenges-groupe9-0.0.1-SNAPSHOT.jar /app/app.jar
 
 # Exposer le port sur lequel l'application s'exécute
-EXPOSE 8086
+EXPOSE 8080
 
 # Commande pour exécuter l'application
 ENTRYPOINT ["java", "-jar", "app.jar"]
