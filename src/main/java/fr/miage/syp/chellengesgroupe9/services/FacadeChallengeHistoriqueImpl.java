@@ -2,38 +2,47 @@ package fr.miage.syp.chellengesgroupe9.services;
 
 import fr.miage.syp.chellengesgroupe9.modele.entities.Challenge;
 import fr.miage.syp.chellengesgroupe9.modele.entities.ChallengeHistorique;
-import fr.miage.syp.chellengesgroupe9.modele.entities.dto.ChallengeDTO;
 import fr.miage.syp.chellengesgroupe9.modele.entities.dto.ChallengeDuJourDTO;
 import fr.miage.syp.chellengesgroupe9.modele.entities.repository.ChallengeHistoriqueRepository;
 import fr.miage.syp.chellengesgroupe9.modele.entities.repository.ChallengeRepository;
 import fr.miage.syp.chellengesgroupe9.modele.mappers.ChallengeMappers;
-import org.hibernate.bytecode.spi.ReflectionOptimizer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.time.*;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
-import java.util.Optional;
 import java.util.Random;
 import java.util.UUID;
 
 @Service
+@EnableScheduling
 public class FacadeChallengeHistoriqueImpl implements FacadeChallengeHistorique{
 
+    @Value("${CHALLENGE_CRON:0 0 18 * * ?}")
+    private String challengeCron;
+
+    private Logger LOG = LoggerFactory.getLogger(FacadeChallengeHistoriqueImpl.class);
     private final ChallengeRepository challengeRepository;
     private final ChallengeHistoriqueRepository challengeHistoriqueRepository;
     private final Random random;
+    private final RabbitEventsSender rabbitEventsSender;
 
-    public FacadeChallengeHistoriqueImpl(ChallengeRepository challengeRepository, ChallengeHistoriqueRepository challengeHistoriqueRepository) {
+    public FacadeChallengeHistoriqueImpl(ChallengeRepository challengeRepository, ChallengeHistoriqueRepository challengeHistoriqueRepository, RabbitEventsSender rabbitEventsSender) {
         this.challengeRepository = challengeRepository;
         this.challengeHistoriqueRepository = challengeHistoriqueRepository;
+        this.rabbitEventsSender = rabbitEventsSender;
         this.random = new Random();
     }
 
-    @Scheduled(cron = "0 0 18 * * ?")
+    @Scheduled(cron = "${CHALLENGE_CRON:0 0 18 * * ?}")
     @Override
     public ChallengeDuJourDTO genererChallengeDuJour() {
+        LOG.warn("CHALLENGE DU JOUR");
         List<Challenge> challenges = challengeRepository.findAll();
         boolean challengeTrouve = false;
         List<ChallengeHistorique> derniers5Tirages = challengeHistoriqueRepository.findLast5Tirages();
@@ -62,8 +71,11 @@ public class FacadeChallengeHistoriqueImpl implements FacadeChallengeHistorique{
         Instant dateDebut = dateEtHoraireDuJour.atZone(ZoneId.systemDefault()).toInstant();
         ChallengeHistorique challengeHistorique = new ChallengeHistorique(
                 challengeTire, dateDebut, dateDebut.plus(24, ChronoUnit.HOURS), 0);
-        challengeHistoriqueRepository.save(challengeHistorique);
-        return ChallengeMappers.dtoToChallengeDuJourDTO(challengeHistorique);
+        challengeHistorique = challengeHistoriqueRepository.save(challengeHistorique);
+        ChallengeDuJourDTO challengeDuJourDTO = ChallengeMappers.dtoToChallengeDuJourDTO(challengeHistorique);
+        this.rabbitEventsSender.sendChallengeDuJour(challengeDuJourDTO);
+        LOG.info("Nouveau challenge du jour généré : {}", challengeDuJourDTO);
+        return challengeDuJourDTO;
 
         //TODO: verifier que dans les 5 derniers challenges il n'y a pas de challenges supprimés (à verifier avec la date de suppression)
         //TODO: revérifier le délir de 5 derniers car le challenge 2 qui est en dernière position de challenge est jamais pris

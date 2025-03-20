@@ -1,30 +1,21 @@
-//package fr.miage.syp.cheorg.springframework.stereotype.Service;
+package fr.miage.syp.chellengesgroupe9.services;
 
-import java.io.Serializable;
-import java.time.Instant;
-import java.util.UUID;
+import fr.miage.syp.chellengesgroupe9.modele.entities.dto.ChallengeDuJourDTO;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.stereotype.Service;
 
-//@Service
+@Service
 public class RabbitEventsSender {
 
-//    private final RabbitTemplate rabbitTemplate;
-//
-//    public RabbitEventsSender(RabbitTemplate rabbitTemplate) {
-//        this.rabbitTemplate = rabbitTemplate;
-//    }
-//
-//    public record Message<T>(UUID idDemande, UUID idReponse, T contenu) implements Serializable {}
-//    public record MessageNewChallenge(UUID idChallenge, String titre, String description) implements Serializable {}
-//
-//
-//    public <T> void send(UUID idDemande, UUID idReponse, T contenu){
-//        Message message = new Message(idDemande, idReponse, contenu);
-//        this.rabbitTemplate.convertAndSend("exchange", "routingkey", message);
-//    }
-//
-//    public void sendUpdateChallengeEvent(UUID idChallenge ,String titre, String description) {
-//        MessageNewChallenge message = new MessageNewChallenge(idChallenge,titre,description);
-//        this.rabbitTemplate.convertAndSend("challenge.creer_challenge", message);
-//    }
+    private final RabbitTemplate rabbitTemplate;
+    private final String NEW_CHALLENGE_QUEUE = "challenges.nouveau_challenge_jour";
+
+    public RabbitEventsSender(RabbitTemplate rabbitTemplate) {
+        this.rabbitTemplate = rabbitTemplate;
+    }
+
+    public void sendChallengeDuJour(ChallengeDuJourDTO challengeDuJourDTO) {
+        this.rabbitTemplate.convertAndSend(NEW_CHALLENGE_QUEUE, challengeDuJourDTO);
+    }
 
  }
