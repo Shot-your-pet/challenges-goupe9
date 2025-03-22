@@ -23,7 +23,7 @@ public class SecurityConfig {
         http
                 .cors(c -> c.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/challenges/*").authenticated()
+                        .requestMatchers("/challenges/**").authenticated()
                         .anyRequest().denyAll()
                 )
                 .oauth2ResourceServer(oauth2 -> oauth2.jwt(Customizer.withDefaults()));
