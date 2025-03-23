@@ -67,6 +67,10 @@ public class FacadeChallengeHistoriqueImpl implements FacadeChallengeHistorique 
         }
         LocalDate dateDuJour = LocalDate.now();
         LocalTime horaireDuJour = LocalTime.of(18, 0);
+        var nowTime = LocalTime.now();
+        if (horaireDuJour.isAfter(nowTime)) {
+            dateDuJour = dateDuJour.minusDays(1);
+        }
         LocalDateTime dateEtHoraireDuJour = LocalDateTime.of(dateDuJour, horaireDuJour);
         Instant dateDebut = dateEtHoraireDuJour.atZone(ZoneId.systemDefault()).toInstant();
         ChallengeHistorique challengeHistorique = new ChallengeHistorique(challengeTire, dateDebut, dateDebut.plus(24, ChronoUnit.HOURS), 0);
@@ -92,10 +96,9 @@ public class FacadeChallengeHistoriqueImpl implements FacadeChallengeHistorique 
         System.out.println(instant);
         List<ChallengeHistorique> challengeHistoriques = challengeHistoriqueRepository.findLastChallenge(instant);
         if (challengeHistoriques.isEmpty()) {
-            return null;
+            return genererChallengeDuJour();
         } else {
             return ChallengeMappers.dtoToChallengeDuJourDTO(challengeHistoriques.getFirst());
         }
     }
-
 }
