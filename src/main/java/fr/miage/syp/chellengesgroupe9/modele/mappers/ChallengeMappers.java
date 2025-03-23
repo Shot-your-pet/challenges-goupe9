@@ -11,6 +11,6 @@ public class ChallengeMappers {
     }
 
     public static ChallengeDuJourDTO dtoToChallengeDuJourDTO(ChallengeHistorique challengeHistorique) {
-        return new ChallengeDuJourDTO(challengeToDTO(challengeHistorique.getChallenge()), challengeHistorique.getDateDebutChallengeHistorique(), challengeHistorique.getDateFinChallengeHistorique());
+        return new ChallengeDuJourDTO(challengeHistorique.getIdChallengeHistorique(), challengeToDTO(challengeHistorique.getChallenge()), challengeHistorique.getDateDebutChallengeHistorique(), challengeHistorique.getDateFinChallengeHistorique());
     }
 }

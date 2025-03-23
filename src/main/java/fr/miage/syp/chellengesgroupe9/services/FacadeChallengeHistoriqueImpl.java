@@ -21,12 +21,12 @@ import java.util.UUID;
 
 @Service
 @EnableScheduling
-public class FacadeChallengeHistoriqueImpl implements FacadeChallengeHistorique{
+public class FacadeChallengeHistoriqueImpl implements FacadeChallengeHistorique {
 
     @Value("${CHALLENGE_CRON:0 0 18 * * ?}")
     private String challengeCron;
 
-    private Logger LOG = LoggerFactory.getLogger(FacadeChallengeHistoriqueImpl.class);
+    private final Logger LOG = LoggerFactory.getLogger(FacadeChallengeHistoriqueImpl.class);
     private final ChallengeRepository challengeRepository;
     private final ChallengeHistoriqueRepository challengeHistoriqueRepository;
     private final Random random;
@@ -48,17 +48,17 @@ public class FacadeChallengeHistoriqueImpl implements FacadeChallengeHistorique{
         List<ChallengeHistorique> derniers5Tirages = challengeHistoriqueRepository.findLast5Tirages();
         Challenge challengeTire = null;
 
-        if(challenges.isEmpty()) {
+        if (challenges.isEmpty()) {
             return null;
         }
 
-        while(!challengeTrouve) {
+        while (!challengeTrouve) {
             int nbAleatoire = random.nextInt(0, Math.max(challenges.size() - 1, 1));
             challengeTire = challenges.get(nbAleatoire);
             challengeTrouve = true;
 
             for (ChallengeHistorique unDesDerniers5Tirage : derniers5Tirages) {
-                if(unDesDerniers5Tirage.getChallenge().equals(challengeTire)) {
+                if (unDesDerniers5Tirage.getChallenge().equals(challengeTire)) {
                     challengeTrouve = false;
                     break;
                 }
@@ -69,8 +69,7 @@ public class FacadeChallengeHistoriqueImpl implements FacadeChallengeHistorique{
         LocalTime horaireDuJour = LocalTime.of(18, 0);
         LocalDateTime dateEtHoraireDuJour = LocalDateTime.of(dateDuJour, horaireDuJour);
         Instant dateDebut = dateEtHoraireDuJour.atZone(ZoneId.systemDefault()).toInstant();
-        ChallengeHistorique challengeHistorique = new ChallengeHistorique(
-                challengeTire, dateDebut, dateDebut.plus(24, ChronoUnit.HOURS), 0);
+        ChallengeHistorique challengeHistorique = new ChallengeHistorique(challengeTire, dateDebut, dateDebut.plus(24, ChronoUnit.HOURS), 0);
         challengeHistorique = challengeHistoriqueRepository.save(challengeHistorique);
         ChallengeDuJourDTO challengeDuJourDTO = ChallengeMappers.dtoToChallengeDuJourDTO(challengeHistorique);
         this.rabbitEventsSender.sendChallengeDuJour(challengeDuJourDTO);
@@ -94,8 +93,7 @@ public class FacadeChallengeHistoriqueImpl implements FacadeChallengeHistorique{
         List<ChallengeHistorique> challengeHistoriques = challengeHistoriqueRepository.findLastChallenge(instant);
         if (challengeHistoriques.isEmpty()) {
             return null;
-        }
-        else {
+        } else {
             return ChallengeMappers.dtoToChallengeDuJourDTO(challengeHistoriques.getFirst());
         }
     }
