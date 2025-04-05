@@ -69,5 +69,6 @@ jobs:
         with:
           context: .
           push: true
+          platforms: linux/amd64,linux/arm64
           tags: ghcr.io/${{ env.REPO_NAME }}/challenges:latest, ghcr.io/${{ env.REPO_NAME }}/challenges:1.0.0-${{ steps.vars.outputs.short_commit }}
 
